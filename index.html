@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ìtàn — Contemporary Nigerian Kitchen · Lagos</title>
+<meta name="description" content="Ìtàn is a contemporary Nigerian kitchen in Victoria Island, Lagos. Fire, spice, and story." />
+<style>
+  :root {
+    --font-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+    --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --radius-sm: 6px; --radius-md: 14px; --radius-lg: 28px;
+    --ease: cubic-bezier(.2,.7,.2,1); --dur: .5s;
+    --maxw: 1200px; --pad: clamp(20px, 5vw, 64px);
+  }
+  html[data-theme="light"] {
+    --bg:#F6F1E7; --bg-soft:#EFE7D7; --surface:#FFFFFF;
+    --text:#1A1713; --text-soft:#5A5147; --line:#E0D6C2;
+    --accent:#B4461E; --accent-2:#2E5D3A; --gold:#A67C2E;
+    --shadow:0 20px 60px -25px rgba(60,40,20,.35);
+    --hero-veil:linear-gradient(180deg,rgba(246,241,231,.15) 0%,rgba(246,241,231,.75) 65%,rgba(246,241,231,1) 100%);
+  }
+  html[data-theme="dark"] {
+    --bg:#0E0C0A; --bg-soft:#16130F; --surface:#1B1712;
+    --text:#F4EDE2; --text-soft:#A79C8B; --line:#2A241C;
+    --accent:#E0743A; --accent-2:#7BA36A; --gold:#D8B25C;
+    --shadow:0 30px 80px -30px rgba(0,0,0,.8);
+    --hero-veil:linear-gradient(180deg,rgba(14,12,10,.25) 0%,rgba(14,12,10,.7) 60%,rgba(14,12,10,1) 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--font-body); background:var(--bg); color:var(--text);
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+    transition:background var(--dur) var(--ease), color var(--dur) var(--ease);
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+
+  .display{font-family:var(--font-display);font-weight:500;line-height:1.02;letter-spacing:-.02em}
+  .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--text-soft);font-weight:500}
+
+  /* NAV */
+  header.nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    padding:18px var(--pad);display:flex;align-items:center;justify-content:space-between;
+    backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 72%, transparent);
+    border-bottom:1px solid color-mix(in srgb, var(--line) 60%, transparent);
+    transition:background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  .brand{font-family:var(--font-display);font-size:26px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 18px var(--accent)}
+  .nav-links{display:flex;gap:34px;font-size:14px;letter-spacing:.04em}
+  .nav-links a{position:relative;color:var(--text-soft);transition:color .25s var(--ease)}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--accent);transition:width .35s var(--ease)}
+  .nav-links a:hover{color:var(--text)}
+  .nav-links a:hover::after{width:100%}
+  .nav-tools{display:flex;align-items:center;gap:10px}
+  .lang{display:flex;align-items:center;gap:2px;padding:4px;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb, var(--surface) 60%, transparent)}
+  .lang button{font-size:11px;letter-spacing:.12em;padding:6px 10px;border-radius:999px;color:var(--text-soft);transition:all .25s var(--ease)}
+  .lang button:hover{color:var(--text)}
+  .lang button.active{background:var(--accent);color:#fff}
+  .theme-toggle{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;background:color-mix(in srgb, var(--surface) 60%, transparent);transition:all .3s var(--ease)}
+  .theme-toggle:hover{border-color:var(--accent);transform:rotate(15deg)}
+  .theme-toggle svg{width:18px;height:18px}
+  html[data-theme="dark"] .icon-sun{display:block}
+  html[data-theme="dark"] .icon-moon{display:none}
+  html[data-theme="light"] .icon-sun{display:none}
+  html[data-theme="light"] .icon-moon{display:block}
+
+  @media (max-width:860px){ .nav-links{display:none} }
+
+  /* HERO */
+  .hero{
+    min-height:100vh;position:relative;display:flex;align-items:flex-end;
+    padding:140px var(--pad) 80px;overflow:hidden;isolation:isolate;
+  }
+  .hero-bg{position:absolute;inset:0;z-index:-2}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.02)}
+  .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:var(--hero-veil)}
+  .grain{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.14;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+  }
+  .hero-inner{max-width:var(--maxw);width:100%;margin:0 auto}
+  .hero h1{font-size:clamp(52px,11vw,168px);line-height:.92;letter-spacing:-.03em}
+  html[data-theme="dark"] .hero h1{color:#F4EDE2}
+  html[data-theme="light"] .hero h1{color:#1A1713}
+  .hero h1 em{font-style:italic;color:var(--accent);font-weight:400}
+  .hero-meta{margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:22px;color:var(--text-soft);font-size:14px}
+  .hero-meta .sep{width:40px;height:1px;background:var(--line)}
+  .scroll-hint{margin-top:40px;display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:var(--text-soft)}
+  .scroll-hint span:first-child{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite var(--ease)}
+  @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.4}}
+
+  /* SECTIONS */
+  section{padding:clamp(80px,12vw,160px) var(--pad)}
+  .container{max-width:var(--maxw);margin:0 auto}
+  .section-head{margin-bottom:64px;max-width:720px}
+  .section-head h2{font-family:var(--font-display);font-weight:500;font-size:clamp(38px,6vw,72px);line-height:1.02;letter-spacing:-.02em;margin-top:14px}
+  .section-head h2 em{font-style:italic;color:var(--accent);font-weight:400}
+
+  /* ABOUT */
+  .about{background:var(--bg-soft);transition:background var(--dur) var(--ease)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+  .about-copy p{font-size:17px;color:var(--text-soft);margin-bottom:22px;max-width:52ch}
+  .about-copy p:first-of-type{font-size:22px;color:var(--text);font-family:var(--font-display);line-height:1.35;font-style:italic}
+  .about-visual{aspect-ratio:4/5;border-radius:var(--radius-lg);position:relative;overflow:hidden;box-shadow:var(--shadow)}
+  .about-visual img{width:100%;height:100%;object-fit:cover}
+  .about-visual .stamp{
+    position:absolute;bottom:28px;left:28px;right:28px;color:#F4EDE2;
+    font-family:var(--font-display);font-size:20px;font-style:italic;line-height:1.3;
+    text-shadow:0 2px 20px rgba(0,0,0,.6);
+  }
+  .about-visual .stamp strong{font-style:normal;display:block;font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.85;margin-bottom:6px;font-family:var(--font-body);font-weight:500}
+  .about-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.75) 100%)}
+
+  /* GALLERY STRIP */
+  .gallery-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:80px}
+  .gallery-strip .tile{aspect-ratio:1;overflow:hidden;border-radius:var(--radius-md);position:relative}
+  .gallery-strip .tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+  .gallery-strip .tile:hover img{transform:scale(1.08)}
+  .gallery-strip .tile:nth-child(odd){aspect-ratio:3/4}
+  @media (max-width:860px){.gallery-strip{grid-template-columns:repeat(2,1fr)}}
+
+  /* MENU */
+  .menu-filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:48px}
+  .chip{padding:10px 18px;border:1px solid var(--line);border-radius:999px;font-size:13px;letter-spacing:.06em;color:var(--text-soft);transition:all .25s var(--ease)}
+  .chip:hover{color:var(--text);border-color:var(--accent)}
+  .chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 64px}
+  .dish{
+    display:grid;grid-template-columns:96px 1fr auto;gap:22px;align-items:center;
+    padding:22px 0;border-bottom:1px solid var(--line);
+    transition:padding .3s var(--ease);
+    animation:fadeUp .5s var(--ease) both;
+  }
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .dish:hover{padding-left:8px}
+  .dish-thumb{width:96px;height:96px;border-radius:var(--radius-md);overflow:hidden;flex-shrink:0;background:var(--bg-soft)}
+  .dish-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+  .dish:hover .dish-thumb img{transform:scale(1.1)}
+  .dish-body{min-width:0}
+  .dish-name{font-family:var(--font-display);font-size:24px;line-height:1.15;letter-spacing:-.01em;margin-bottom:6px}
+  .dish-desc{font-size:13.5px;color:var(--text-soft);line-height:1.5;max-width:46ch}
+  .dish-price{font-family:var(--font-display);font-size:22px;color:var(--accent);white-space:nowrap}
+  .dish-tag{display:inline-block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+
+  /* RESERVE */
+  .reserve{
+    background:
+      radial-gradient(90% 80% at 20% 10%, rgba(224,116,58,.18), transparent 60%),
+      radial-gradient(80% 80% at 90% 90%, rgba(46,93,58,.22), transparent 60%),
+      var(--bg-soft);
+    transition:background var(--dur) var(--ease);
+  }
+  .reserve-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:start}
+  .reserve-info h2{margin-bottom:24px}
+  .reserve-info p{color:var(--text-soft);font-size:16px;max-width:46ch;margin-bottom:40px}
+  .info-row{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:18px 0;border-top:1px solid var(--line);font-size:15px}
+  .info-row:last-child{border-bottom:1px solid var(--line)}
+  .info-row .k{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--text-soft);padding-top:3px}
+  .info-row .v{color:var(--text)}
+  .info-row .v a:hover{color:var(--accent)}
+  form.reserve-form{background:var(--surface);padding:40px;border-radius:var(--radius-lg);border:1px solid var(--line);box-shadow:var(--shadow);transition:background var(--dur) var(--ease), border-color var(--dur) var(--ease)}
+  .field{margin-bottom:22px}
+  .field label{display:block;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-soft);margin-bottom:8px}
+  .field input, .field select, .field textarea{width:100%;padding:14px 0;background:transparent;border:none;border-bottom:1px solid var(--line);color:var(--text);font:inherit;outline:none;transition:border-color .3s var(--ease)}
+  .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--accent)}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .btn{display:inline-flex;align-items:center;gap:12px;padding:16px 32px;background:var(--accent);color:#fff;border-radius:999px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;transition:all .35s var(--ease);margin-top:8px}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 20px 40px -20px var(--accent)}
+  .btn .arrow{transition:transform .35s var(--ease)}
+  .btn:hover .arrow{transform:translateX(4px)}
+
+  /* FOOTER */
+  footer{padding:80px var(--pad) 40px;border-top:1px solid var(--line);background:var(--bg);transition:background var(--dur) var(--ease), border-color var(--dur) var(--ease)}
+  .foot-grid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;padding-bottom:60px}
+  .foot-brand h3{font-family:var(--font-display);font-size:40px;font-weight:500;letter-spacing:-.01em;margin-bottom:14px}
+  .foot-brand p{color:var(--text-soft);font-size:14px;max-width:34ch}
+  .foot-col h4{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--text-soft);margin-bottom:20px;font-weight:500}
+  .foot-col a, .foot-col p{display:block;font-size:14px;color:var(--text);padding:6px 0;transition:color .25s var(--ease)}
+  .foot-col a:hover{color:var(--accent)}
+  .foot-bottom{max-width:var(--maxw);margin:0 auto;padding-top:30px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--text-soft);letter-spacing:.05em}
+
+  @media (max-width:860px){
+    .about-grid, .menu-grid, .reserve-grid, .field-row{grid-template-columns:1fr}
+    .about-grid, .reserve-grid{gap:48px}
+    .menu-grid{gap:0}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:40px}
+    .info-row{grid-template-columns:1fr;gap:6px}
+    form.reserve-form{padding:28px}
+    .dish{grid-template-columns:72px 1fr auto;gap:16px}
+    .dish-thumb{width:72px;height:72px}
+  }
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease), transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <a href="#" class="brand"><span class="dot"></span><span>Ìtàn</span></a>
+  <nav class="nav-links">
+    <a href="#about" data-i18n="nav.about">About</a>
+    <a href="#menu" data-i18n="nav.menu">Menu</a>
+    <a href="#reserve" data-i18n="nav.reserve">Reservations</a>
+    <a href="#visit" data-i18n="nav.visit">Visit</a>
+  </nav>
+  <div class="nav-tools">
+    <div class="lang" role="group" aria-label="Language">
+      <button data-lang="en" class="active">EN</button>
+      <button data-lang="fr">FR</button>
+      <button data-lang="es">ES</button>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-bg">
+    <img
+      src="https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?auto=format&fit=crop&w=2000&q=80"
+      alt="Open flame cooking"
+      loading="eager" />
+  </div>
+  <div class="grain"></div>
+  <div class="hero-inner">
+    <div class="eyebrow" data-i18n="hero.eyebrow">Victoria Island · Lagos · Est. 2019</div>
+    <h1 class="display" data-i18n-html="hero.title">Fire, spice,<br/>and <em>story</em>.</h1>
+    <div class="hero-meta">
+      <span data-i18n="hero.tagline">A contemporary Nigerian kitchen.</span>
+      <span class="sep"></span>
+      <span data-i18n="hero.hours">Dinner · Tue–Sun · 6pm till late</span>
+    </div>
+    <div class="scroll-hint"><span></span><span data-i18n="hero.scroll">Scroll</span></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-copy reveal">
+        <div class="eyebrow" data-i18n="about.eyebrow">Our story</div>
+        <h2 class="display" style="margin-bottom:32px" data-i18n-html="about.title">A <em>story</em> told in fire.</h2>
+        <p data-i18n="about.p1">Ìtàn means "story" in Yoruba. Ours begins at dawn, at Mile 12 market, choosing peppers by scent and heft — tatashe, rodo, shombo — the way our grandmothers did.</p>
+        <p data-i18n="about.p2">We cook over open fire and clay. We smoke, we ferment, we age. Then we plate it in a way that respects where it came from — and where Nigerian food is going next.</p>
+        <p data-i18n="about.p3">Every dish on this menu has a name, a place, and a person behind it. Ask us about any of them.</p>
+      </div>
+      <div class="about-visual reveal">
+        <img
+          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80"
+          alt="Chef plating a dish" loading="lazy" />
+        <div class="stamp">
+          <strong>Chef</strong>
+          Adéṣínà Ògúnlànà
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-strip reveal">
+      <div class="tile"><img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80" alt="Grilled skewers" loading="lazy"/></div>
+      <div class="tile"><img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80" alt="Spices" loading="lazy"/></div>
+      <div class="tile"><img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=800&q=80" alt="Rice dish" loading="lazy"/></div>
+      <div class="tile"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Restaurant interior" loading="lazy"/></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU ============ -->
+<section id="menu">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="menu.eyebrow">The menu</div>
+      <h2 class="display" data-i18n-html="menu.title">What the fire <em>remembers</em>.</h2>
+    </div>
+
+    <div class="menu-filters reveal">
+      <button class="chip active" data-filter="all" data-i18n="menu.filter.all">All</button>
+      <button class="chip" data-filter="small" data-i18n="menu.filter.small">Small chops</button>
+      <button class="chip" data-filter="main" data-i18n="menu.filter.main">Mains</button>
+      <button class="chip" data-filter="grill" data-i18n="menu.filter.grill">From the grill</button>
+      <button class="chip" data-filter="sweet" data-i18n="menu.filter.sweet">Sweet</button>
+    </div>
+
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</section>
+
+<!-- ============ RESERVE ============ -->
+<section class="reserve" id="reserve">
+  <div class="container">
+    <div class="reserve-grid">
+      <div class="reserve-info reveal">
+        <div class="eyebrow" data-i18n="reserve.eyebrow">Reservations</div>
+        <h2 class="display" data-i18n-html="reserve.title">Pull up a <em>chair</em>.</h2>
+        <p data-i18n="reserve.intro">We seat 48. Dinner runs Tuesday through Sunday. For parties larger than six, or for the chef's table, please call us directly.</p>
+
+        <div class="info-row">
+          <div class="k" data-i18n="reserve.address.k">Address</div>
+          <div class="v">14B Adeola Odeku Street<br/>Victoria Island, Lagos 106104<br/>Nigeria</div>
+        </div>
+        <div class="info-row">
+          <div class="k" data-i18n="reserve.hours.k">Hours</div>
+          <div class="v" data-i18n-html="reserve.hours.v">Tue–Thu · 6pm – 11pm<br/>Fri–Sat · 6pm – 1am<br/>Sun · 5pm – 10pm</div>
+        </div>
+        <div class="info-row">
+          <div class="k" data-i18n="reserve.phone.k">Phone</div>
+          <div class="v"><a href="tel:+2348012345678">+234 801 234 5678</a></div>
+        </div>
+        <div class="info-row">
+          <div class="k" data-i18n="reserve.email.k">Email</div>
+          <div class="v"><a href="mailto:hello@itanlagos.ng">hello@itanlagos.ng</a></div>
+        </div>
+      </div>
+
+      <form class="reserve-form reveal" id="reserveForm" novalidate>
+        <div class="field"><label data-i18n="form.name">Name</label><input type="text" required /></div>
+        <div class="field-row">
+          <div class="field"><label data-i18n="form.date">Date</label><input type="date" required /></div>
+          <div class="field"><label data-i18n="form.time">Time</label><input type="time" required /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label data-i18n="form.guests">Guests</label>
+            <select required>
+              <option>1</option><option selected>2</option><option>3</option>
+              <option>4</option><option>5</option><option>6</option><option>7+</option>
+            </select>
+          </div>
+          <div class="field"><label data-i18n="form.phone">Phone</label><input type="tel" placeholder="+234" required /></div>
+        </div>
+        <div class="field"><label data-i18n="form.notes">Anything we should know?</label><textarea rows="2"></textarea></div>
+        <button type="submit" class="btn">
+          <span data-i18n="form.submit">Request table</span>
+          <span class="arrow">→</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="visit">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <h3>Ìtàn</h3>
+      <p data-i18n="footer.tagline">A contemporary Nigerian kitchen in the heart of Victoria Island. Fire, spice, and story — every night.</p>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="footer.explore">Explore</h4>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#menu" data-i18n="nav.menu">Menu</a>
+      <a href="#reserve" data-i18n="nav.reserve">Reservations</a>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="footer.visit">Visit</h4>
+      <p>14B Adeola Odeku St</p><p>Victoria Island, Lagos</p><p>Nigeria</p>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="footer.follow">Follow</h4>
+      <a href="#">Instagram</a><a href="#">X (Twitter)</a><a href="#">TikTok</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Ìtàn Lagos. <span data-i18n="footer.rights">All rights reserved.</span></span>
+    <span data-i18n="footer.made">Made in Lagos with fire.</span>
+  </div>
+</footer>
+
+<script>
+/* ================= THEME ================= */
+const root = document.documentElement;
+const savedTheme = localStorage.getItem('theme');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+root.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+
+document.getElementById('themeToggle').addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+});
+
+/* ================= I18N ================= */
+const I18N = {
+  en: {
+    "nav.about":"About","nav.menu":"Menu","nav.reserve":"Reservations","nav.visit":"Visit",
+    "hero.eyebrow":"Victoria Island · Lagos · Est. 2019",
+    "hero.title":"Fire, spice,<br/>and <em>story</em>.",
+    "hero.tagline":"A contemporary Nigerian kitchen.",
+    "hero.hours":"Dinner · Tue–Sun · 6pm till late","hero.scroll":"Scroll",
+    "about.eyebrow":"Our story","about.title":"A <em>story</em> told in fire.",
+    "about.p1":"Ìtàn means \"story\" in Yoruba. Ours begins at dawn, at Mile 12 market, choosing peppers by scent and heft — tatashe, rodo, shombo — the way our grandmothers did.",
+    "about.p2":"We cook over open fire and clay. We smoke, we ferment, we age. Then we plate it in a way that respects where it came from — and where Nigerian food is going next.",
+    "about.p3":"Every dish on this menu has a name, a place, and a person behind it. Ask us about any of them.",
+    "menu.eyebrow":"The menu","menu.title":"What the fire <em>remembers</em>.",
+    "menu.filter.all":"All","menu.filter.small":"Small chops","menu.filter.main":"Mains","menu.filter.grill":"From the grill","menu.filter.sweet":"Sweet",
+    "reserve.eyebrow":"Reservations","reserve.title":"Pull up a <em>chair</em>.",
+    "reserve.intro":"We seat 48. Dinner runs Tuesday through Sunday. For parties larger than six, or for the chef's table, please call us directly.",
+    "reserve.address.k":"Address","reserve.hours.k":"Hours","reserve.hours.v":"Tue–Thu · 6pm – 11pm<br/>Fri–Sat · 6pm – 1am<br/>Sun · 5pm – 10pm","reserve.phone.k":"Phone","reserve.email.k":"Email",
+    "form.name":"Name","form.date":"Date","form.time":"Time","form.guests":"Guests","form.phone":"Phone",
+    "form.notes":"Anything we should know?","form.submit":"Request table",
+    "footer.tagline":"A contemporary Nigerian kitchen in the heart of Victoria Island. Fire, spice, and story — every night.",
+    "footer.explore":"Explore","footer.visit":"Visit","footer.follow":"Follow","footer.rights":"All rights reserved.","footer.made":"Made in Lagos with fire."
+  },
+  fr: {
+    "nav.about":"À propos","nav.menu":"Carte","nav.reserve":"Réservations","nav.visit":"Nous trouver",
+    "hero.eyebrow":"Victoria Island · Lagos · Depuis 2019",
+    "hero.title":"Le feu, les épices,<br/>et l'<em>histoire</em>.",
+    "hero.tagline":"Une cuisine nigériane contemporaine.",
+    "hero.hours":"Dîner · Mar–Dim · 18h jusqu'à tard","hero.scroll":"Défiler",
+    "about.eyebrow":"Notre histoire","about.title":"Une <em>histoire</em> racontée par le feu.",
+    "about.p1":"Ìtàn signifie « histoire » en yoruba. La nôtre commence à l'aube, au marché Mile 12, à choisir les piments à l'odeur et au poids — tatashe, rodo, shombo — comme nos grands-mères.",
+    "about.p2":"Nous cuisinons sur feu ouvert et argile. Nous fumons, fermentons, faisons vieillir. Puis nous dressons dans le respect de l'origine — et de l'avenir de la cuisine nigériane.",
+    "about.p3":"Chaque plat a un nom, un lieu et une personne derrière lui. Demandez-nous.",
+    "menu.eyebrow":"La carte","menu.title":"Ce que le feu <em>se rappelle</em>.",
+    "menu.filter.all":"Tout","menu.filter.small":"Petites bouchées","menu.filter.main":"Plats","menu.filter.grill":"Du grill","menu.filter.sweet":"Desserts",
+    "reserve.eyebrow":"Réservations","reserve.title":"Prenez une <em>chaise</em>.",
+    "reserve.intro":"48 couverts. Dîner du mardi au dimanche. Pour plus de six personnes, ou la table du chef, appelez-nous directement.",
+    "reserve.address.k":"Adresse","reserve.hours.k":"Horaires","reserve.hours.v":"Mar–Jeu · 18h – 23h<br/>Ven–Sam · 18h – 1h<br/>Dim · 17h – 22h","reserve.phone.k":"Téléphone","reserve.email.k":"Email",
+    "form.name":"Nom","form.date":"Date","form.time":"Heure","form.guests":"Convives","form.phone":"Téléphone",
+    "form.notes":"Quelque chose à nous signaler ?","form.submit":"Réserver",
+    "footer.tagline":"Une cuisine nigériane contemporaine au cœur de Victoria Island. Feu, épices et histoire — chaque soir.",
+    "footer.explore":"Explorer","footer.visit":"Visiter","footer.follow":"Suivre","footer.rights":"Tous droits réservés.","footer.made":"Fait à Lagos, avec feu."
+  },
+  es: {
+    "nav.about":"Nosotros","nav.menu":"Menú","nav.reserve":"Reservas","nav.visit":"Visítanos",
+    "hero.eyebrow":"Victoria Island · Lagos · Desde 2019",
+    "hero.title":"Fuego, especias,<br/>e <em>historia</em>.",
+    "hero.tagline":"Una cocina nigeriana contemporánea.",
+    "hero.hours":"Cena · Mar–Dom · 18h hasta tarde","hero.scroll":"Desliza",
+    "about.eyebrow":"Nuestra historia","about.title":"Una <em>historia</em> contada por el fuego.",
+    "about.p1":"Ìtàn significa «historia» en yoruba. La nuestra empieza al amanecer, en el mercado Mile 12, eligiendo pimientos por aroma y peso — tatashe, rodo, shombo — como lo hacían nuestras abuelas.",
+    "about.p2":"Cocinamos sobre fuego abierto y barro. Ahumamos, fermentamos, curamos. Luego emplatamos respetando de dónde viene — y hacia dónde va la cocina nigeriana.",
+    "about.p3":"Cada plato tiene un nombre, un lugar y una persona detrás. Pregúntanos.",
+    "menu.eyebrow":"El menú","menu.title":"Lo que el fuego <em>recuerda</em>.",
+    "menu.filter.all":"Todo","menu.filter.small":"Bocados","menu.filter.main":"Principales","menu.filter.grill":"De la parrilla","menu.filter.sweet":"Dulces",
+    "reserve.eyebrow":"Reservas","reserve.title":"Toma una <em>silla</em>.",
+    "reserve.intro":"48 asientos. Cena de martes a domingo. Para grupos de más de seis, o la mesa del chef, llámanos directamente.",
+    "reserve.address.k":"Dirección","reserve.hours.k":"Horario","reserve.hours.v":"Mar–Jue · 18h – 23h<br/>Vie–Sáb · 18h – 1h<br/>Dom · 17h – 22h","reserve.phone.k":"Teléfono","reserve.email.k":"Email",
+    "form.name":"Nombre","form.date":"Fecha","form.time":"Hora","form.guests":"Comensales","form.phone":"Teléfono",
+    "form.notes":"¿Algo que debamos saber?","form.submit":"Reservar",
+    "footer.tagline":"Una cocina nigeriana contemporánea en el corazón de Victoria Island. Fuego, especias e historia — cada noche.",
+    "footer.explore":"Explorar","footer.visit":"Visitar","footer.follow":"Seguir","footer.rights":"Todos los derechos reservados.","footer.made":"Hecho en Lagos con fuego."
+  }
+};
+
+/* ================= MENU DATA with IMAGES ================= */
+const MENU = [
+  {
+    cat:"small",
+    name:{en:"Suya Wagyu Skewers",fr:"Brochettes de Wagyu Suya",es:"Brochetas de Wagyu Suya"},
+    desc:{en:"Thin-sliced wagyu, house yaji, red onion, roasted groundnut dust.",fr:"Wagyu finement tranché, yaji maison, oignon rouge, poudre d'arachide grillée.",es:"Wagyu en láminas, yaji de la casa, cebolla roja, maní tostado molido."},
+    price:"₦9,500",
+    tag:{en:"Signature",fr:"Signature",es:"Insignia"},
+    img:"https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    cat:"small",
+    name:{en:"Ofada Arancini",fr:"Arancini d'Ofada",es:"Arancini de Ofada"},
+    desc:{en:"Crisp ofada rice spheres, ayamase centre, smoked prawn oil.",fr:"Sphères croustillantes de riz ofada, cœur d'ayamase, huile de crevette fumée.",es:"Esferas crujientes de arroz ofada, centro de ayamase, aceite de camarón ahumado."},
+    price:"₦7,200",
+    img:"https://images.unsplash.com/photo-1541544741938-0af808871cc0?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    cat:"small",
+    name:{en:"Peppered Snail",fr:"Escargot au poivre",es:"Caracol a la pimienta"},
+    desc:{en:"Giant African snail, scotch bonnet glaze, uziza leaf.",fr:"Escargot africain géant, glaçage au piment écossais, feuille d'uziza.",es:"Caracol africano gigante, glaseado de ají escocés, hoja de uziza."},
+    price:"₦8,000",
+    img:"https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    cat:"main",
+    name:{en:"Smoked Jollof, 24 Hours",fr:"Jollof fumé, 24 heures",es:"Jollof ahumado, 24 horas"},
+    desc:{en:"Long-grain rice cooked over firewood, tomato-rogue reduction, aged for a day.",fr:"Riz long cuit au feu de bois, réduction tomate-rouge, affiné un jour.",es:"Arroz de grano largo cocido a leña, reducción de tomate rojo, curado un día."},
+    price:"₦12,000",
+    tag:{en:"Signature",fr:"Signature",es:"Insignia"},
+    img:"https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    cat:"main",
+    name:{en:"Egusi & Bone Marrow",fr:"Egusi & moelle osseuse",es:"Egusi y médula ósea"},
+    desc:{en:"Melon seed stew, roasted bone marrow, bitterleaf, pounded yam.",fr:"Ragoût de graines de melon, moelle rôtie, feuille amère, igname pilée.",es:"Guiso de semillas de melón, médula asada, hoja amarga, ñame majado."},
+    price:"₦11,500",
+    img:"https://images.unsplash.com/photo-1604909052743-94e838986d24?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    cat:"main",
+    name:{en:"Ofada & Ayamase",fr:"Ofada & Ayamase",es:"Ofada y Ayamase"},
+    desc:{en:"Unpolished ofada rice, green pepper stew, assorted meats, boiled egg.",fr:"Riz ofada non poli, ragoût de poivron vert, viandes assorties, œuf dur.",es:"Arroz ofada sin pulir, guiso de pimiento verde, carnes surtidas, huevo cocido."},
+    price:"₦10,800",
+    img:"https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    cat:"main",
+    name:{en:"Goat & Yam Porridge",fr:"Bouillie de chèvre et igname",es:"Gachas de cabra y ñame"},
+    desc:{en:"Slow-braised goat, yam, scent leaf, smoked crayfish.",fr:"Chèvre mijotée lentement, igname, feuille parfumée, écrevisse fumée.",es:"Cabra estofada, ñame, hoja aromática, cangrejo de río ahumado."},
+    price:"₦10,200",
+    img:"https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    cat:"grill",
+    name:{en:"Whole Grilled Croaker",fr:"Croaker entier grillé",es:"Corvina entera a la parrilla"},
+    desc:{en:"Line-caught croaker, yaji rub, grilled over open flame, lime, obe ata.",fr:"Croaker pêché à la ligne, frotté au yaji, grillé à la flamme, citron vert, obe ata.",es:"Corvina pescada, frotada con yaji, asada a la llama, lima, obe ata."},
+    price:"₦18,500",
+    tag:{en:"For two",fr:"Pour deux",es:"Para dos"},
+    img:"https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    cat:"grill",
+    name:{en:"Asun",fr:"Asun",es:"Asun"},
+    desc:{en:"Smoked goat, scotch bonnet, onion, a whisper of uziza.",fr:"Chèvre fumée, piment écossais, oignon, un souffle d'uziza.",es:"Cabra ahumada, ají escocés, cebolla, un susurro de uziza."},
+    price:"₦9,800",
+    img:"https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    cat:"grill",
+    name:{en:"Suya Ribeye",fr:"Côte de bœuf Suya",es:"Ribeye Suya"},
+    desc:{en:"Dry-aged ribeye, yaji crust, red onion, tomato.",fr:"Côte de bœuf maturée, croûte de yaji, oignon rouge, tomate.",es:"Ribeye madurado, costra de yaji, cebolla roja, tomate."},
+    price:"₦22,000",
+    tag:{en:"Chef's pick",fr:"Choix du chef",es:"Elección del chef"},
+    img:"https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    cat:"sweet",
+    name:{en:"Puff-Puff & Chocolate",fr:"Puff-Puff & chocolat",es:"Puff-Puff y chocolate"},
+    desc:{en:"Warm puff-puff, 70% dark chocolate ganache, sea salt.",fr:"Puff-puff chaud, ganache chocolat noir 70%, sel de mer.",es:"Puff-puff caliente, ganache de chocolate negro 70%, sal marina."},
+    price:"₦6,500",
+    img:"https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    cat:"sweet",
+    name:{en:"Coconut & Tigernut",fr:"Coco & noix tigrées",es:"Coco y chufa"},
+    desc:{en:"Coconut custard, tigernut cream, toasted coconut, palm sugar.",fr:"Crème de coco, crème de noix tigrées, coco grillée, sucre de palme.",es:"Natilla de coco, crema de chufa, coco tostado, azúcar de palma."},
+    price:"₦6,800",
+    img:"https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    cat:"sweet",
+    name:{en:"Chin-Chin Ice Cream",fr:"Glace Chin-Chin",es:"Helado Chin-Chin"},
+    desc:{en:"House chin-chin, vanilla bean ice cream, honey, nutmeg.",fr:"Chin-chin maison, glace à la vanille, miel, muscade.",es:"Chin-chin casero, helado de vainilla, miel, nuez moscada."},
+    price:"₦6,200",
+    img:"https://images.unsplash.com/photo-1567206563064-6f60f40a2b57?auto=format&fit=crop&w=400&q=80"
+  }
+];
+
+let currentLang = 'en';
+let currentFilter = 'all';
+
+function renderMenu() {
+  const grid = document.getElementById('menuGrid');
+  const items = MENU.filter(m => currentFilter === 'all' || m.cat === currentFilter);
+  grid.innerHTML = items.map((m, i) => `
+    <div class="dish" style="animation-delay:${i * 40}ms">
+      <div class="dish-thumb"><img src="${m.img}" alt="${m.name[currentLang]}" loading="lazy"/></div>
+      <div class="dish-body">
+        ${m.tag ? `<div class="dish-tag">${m.tag[currentLang]}</div>` : ''}
+        <div class="dish-name">${m.name[currentLang]}</div>
+        <div class="dish-desc">${m.desc[currentLang]}</div>
+      </div>
+      <div class="dish-price">${m.price}</div>
+    </div>
+  `).join('');
+}
+
+function applyLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    const v = I18N[lang][k];
+    if (v !== undefined) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const k = el.getAttribute('data-i18n-html');
+    const v = I18N[lang][k];
+    if (v !== undefined) el.innerHTML = v;
+  });
+  document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  renderMenu();
+  localStorage.setItem('lang', lang);
+}
+
+document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+  document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+  c.classList.add('active');
+  currentFilter = c.dataset.filter;
+  renderMenu();
+}));
+
+/* ============ REVEAL ============ */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ============ FORM ============ */
+document.getElementById('reserveForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const msgs = {
+    en:"Thank you — we'll confirm by phone shortly.",
+    fr:"Merci — nous confirmerons par téléphone bientôt.",
+    es:"Gracias — confirmaremos por teléfono en breve."
+  };
+  alert(msgs[currentLang]);
+});
+
+document.getElementById('year').textContent = new Date().getFullYear();
+applyLang(localStorage.getItem('lang') || 'en');
+</script>
+</body>
+</html>
